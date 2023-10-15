@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Data resource</title>
+  <link rel="stylesheet" th:href="@{/css/cart1.css}">
+</head>
+<body>
+<div class="cart">
+  <h2 class="cart-header">Корзина товаров</h2>
+  <ul class="cart-items" th:each="cartProd:${cartList}">
+    <li class="cart-item">
+      <div class="item-details">
+        <span class="item-price" th:text="${cartProd.getProduct().getName()}"></span>
+      </div>
+      <span class="item-price" th:text="${'Цена : '+cartProd.getProduct().getPrice()}"></span>
+      <div class="item-quantity">
+        <form th:action="@{/products/cart1}" method="post">
+          <input type="hidden" name="productId" th:value="${cartProd.getProduct().getId()}"/>
+          <input type="hidden" name="plusOneAction" value="plusOne" />
+          <button type="submit" class="quantity-button plus">+</button>
+        </form>
+        <span class="item-quantity-value" th:text="${cartProd.getCount()}"></span>
+        <form th:action="@{/products/cart1}" method="post">
+          <input type="hidden" name="productId" th:value="${cartProd.getProduct().getId()}"/>
+          <input type="hidden" name="minusOneAction" value="minusOne" />
+          <button type="submit" class="quantity-button minus">-</button>
+        </form>
+        <form th:action="@{/products/cart1}" method="post">
+          <input type="hidden" name="productId" th:value="${cartProd.getProduct().getId()}"/>
+          <input type="hidden" name="removeAction" value="remove" />
+          <button type="submit" class=" remove">Удалить</button>
+        </form>
+      </div>
+    </li>
+  </ul>
+  <div class="cart-total" th:text="${'Общая сумма : '+totalCost}" ></div>
+  <form th:action="@{/products/cart1}" method="post">
+    <div class="cart-buttons">
+      <input type="hidden" name="clearAllAction" value="clearAll" />
+      <button type="submit" class="clear-all-button">Удалить все</button>
+    </div>
+  </form>
+  <form th:action="@{/products/order}" method="post">
+    <div class="cart-buttons">
+      <input type="hidden" name="cartListConf" th:value="${cartList}" />
+      <button type="submit">Оформить заказ</button>
+    </div>
+  </form>
+</div>
+</body>
+</html>

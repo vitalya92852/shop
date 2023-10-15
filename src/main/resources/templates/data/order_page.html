@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Data resource</title>
+  <link rel="stylesheet" th:href="@{/css/order.css}">
+</head>
+<body>
+<h1>Оформленные заказы</h1>
+<div class="order-container" th:each="orderLists:${orderList}">
+  <span class="order-number" th:text="${'Заказ #'+orderLists.getId()}"></span>
+  <div th:each="orderProduct:${order}" th:classappend="${orderLists.getId()==orderProduct.getOrder().getId()}?'order'">
+    <h2 class="order-title"></h2>
+    <div th:if="${orderProduct.getOrder().getId()==orderLists.getId()}">
+      <div class="order-details">
+        <span class="order-label">Товар:</span>
+        <span class="order-value" th:text="${orderProduct.getProduct().getName()}"></span>
+      </div>
+    </div>
+    <div th:if="${orderProduct.getOrder().getId()==orderLists.getId()}">
+      <div class="order-details">
+          <span class="order-label">Количество:</span>
+          <span class="order-value" th:text="${orderProduct.getCount()}"></span>
+      </div>
+    </div>
+    <div th:if="${orderProduct.getOrder().getId()==orderLists.getId()}">
+      <div class="order-details">
+        <span class="order-label">Дата заказа:</span>
+        <span class="order-value" th:text="${orderProduct.getOrder().getDate()}"></span>
+      </div>
+    </div>
+    <div th:if="${orderProduct.getOrder().getId()==orderLists.getId()}">
+      <div class="order-details">
+        <span class="order-label">Статус заказа:</span>
+        <span class="order-value" th:text="${orderProduct.getOrder().getStatus().getName()}"></span>
+      </div>
+    </div>
+  </div>
+</div>
+
+</body>
+</html>

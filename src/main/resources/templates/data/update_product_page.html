@@ -1,0 +1,103 @@
+<!doctype html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Form page</title>
+
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f2f2f2;
+    }
+
+    .container {
+      max-width: 400px;
+      margin: 0 auto;
+      padding: 20px;
+      background-color: #ffffff;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    }
+
+    h1 {
+      text-align: center;
+    }
+
+    .form-group {
+      margin-bottom: 20px;
+    }
+
+    label {
+      display: block;
+      font-weight: bold;
+      margin-bottom: 5px;
+    }
+
+    input[type="text"],
+    select {
+      width: 100%;
+      padding: 10px;
+      font-size: 16px;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+      box-sizing: border-box;
+    }
+
+    button[type="submit"] {
+      display: block;
+      width: 100%;
+      padding: 10px;
+      font-size: 16px;
+      color: #fff;
+      background-color: #4CAF50;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+    }
+
+    button[type="submit"]:hover {
+      background-color: #45a049;
+    }
+  </style>
+</head>
+<body>
+
+<!--<form th:action="@{/form_controller}" method="post">-->
+
+<!--  <div>-->
+<!--  <p>Введите id категории</p>-->
+<!--  <select name="category_id">-->
+<!--    <option th:value="${categoryLists.getId()}" th:each="categoryLists:${categoryList}" th:text="${categoryLists.getName()}"></option>-->
+<!--  </select>-->
+<!--  </div>-->
+
+<!--  <input type="text" name="name" placeholder="Введите имя">-->
+
+<!--  <input type="text" name="price" placeholder="Введите цену">-->
+
+<!--  <button type="submit">Отправить форму</button>-->
+
+<!--</form>-->
+
+<div class="container">
+  <h1>Изменить товар</h1>
+  <form th:action="@{/products/update}" method="post">
+    <div class="form-group">
+      <label for="name">Изменить имя</label>
+      <input type="text" id="name" name="name" required>
+    </div>
+    <div class="form-group">
+      <label for="price">Изменить цену:</label>
+      <input type="text" id="price" name="price" pattern="[0-9]*">
+    </div>
+    <div class="form-group">
+      <label for="product">Товар:</label>
+      <select id="product" name="product_id">
+        <option th:value="${product.getId()}" th:each="product:${productList}" th:text="${product.getName()}"></option>
+      </select>
+    </div>
+    <button type="submit">Отправить</button>
+  </form>
+</div>
+
+</body>
+</html>

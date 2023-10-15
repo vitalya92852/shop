@@ -1,0 +1,36 @@
+    <!DOCTYPE html>
+    <html xmlns:th="http://www.thymeleaf.org" lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <title>Data resource</title>
+        <link rel="stylesheet" th:href="@{/css/check_order.css}">
+    </head>
+    <body>
+    <h1>Подтверждение заказов</h1>
+    <table>
+        <tr>
+            <th>Заказ</th>
+            <th>Статус</th>
+            <th>Действия</th>
+        </tr>
+        <tr th:each="order:${orderList}">
+            <td th:text="${'Заказ #'+order.getId()}"></td>
+            <td th:text="${order.getStatus().getName()}"></td>
+            <td>
+                <div class="buttons">
+                    <form th:action="@{/check_user_order}" method="post">
+                        <input type="hidden" name="confirm" value="confirm"/>
+                        <input type="hidden" name="order_confirm"th:value="${order.getId()}"/>
+                        <button type="submit" class="confirm-button">Доставляется</button>
+                    </form>
+                    <form th:action="@{/check_user_order}" method="post">
+                        <input type="hidden" name="reject" value="reject"/>
+                        <input type="hidden" name="order_reject"th:value="${order.getId()}"/>
+                        <button type="submit" class="reject-button">Отклонить</button>
+                    </form>
+                </div>
+            </td>
+        </tr>
+    </table>
+    </body>
+    </html>

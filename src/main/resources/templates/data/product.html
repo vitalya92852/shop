@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Data resource</title>
+    <link rel="stylesheet" th:href="@{/css/view.css}">
+</head>
+<div class="header-buttons">
+    <a th:href="@{/products/order}" class="view-ordered-button">Просмотр заказов</a>
+    <a th:href="@{/products/cart1}" class="cart-button">Корзина</a>
+</div>
+<body>
+    <h1>Список товаров</h1>
+<form th:action="@{/products/{id}(id=${products.getId()})}" method="post">
+    <ul th:each="product:${products}">
+        <li>
+            <h2 th:text="${product.getCategory().getName()}"></h2>
+            <p th:text="${product.getName()}"></p>
+            <p th:text="${'Цена: '+product.getPrice()}"></p>
+            <div class="rating">
+                <span th:text="${'Рейтинг :'+ avgRating}"></span>
+            </div>
+        </li>
+    </ul>
+    <div class="reviews1">
+        <h2 class="userReview">Отзывы покупателей</h2>
+        <div class="review1" th:each="review:${reviews}">
+            <div class="review-content1" th:if="${review.getPublication()==true}">
+                <h3 th:text="${review.getUser().getName()}"></h3>
+                <p th:text="${review.getText()}">!</p>
+            </div>
+            <div class="rating1"th:if="${review.getPublication()==true}" >
+                <span class="stars1" th:text="${'Рейтинг: '+review.getRating()}"></span>
+            </div>
+        </div>
+    </div>
+    <th:block th:if="${showCommentField}">
+    <h2>Добавить комментарий</h2>
+    <div class="add-comment">
+        <form action="add-comment" method="post">
+            <textarea name="text" id="text" placeholder="Введите ваш комментарий"></textarea>
+            <select name="rating" id="rating">
+                <option value="1">&#9733;</option>
+                <option value="2">&#9733;&#9733;</option>
+                <option value="3">&#9733;&#9733;&#9733;</option>
+                <option value="4">&#9733;&#9733;&#9733;&#9733;</option>
+                <option value="5">&#9733;&#9733;&#9733;&#9733;&#9733;</option>
+            </select>
+
+            <button type="submit">Добавить</button>
+        </form>
+    </div>
+    </th:block>
+</form>
+</body>
+</html>

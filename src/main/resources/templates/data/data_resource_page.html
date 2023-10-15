@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Data resource</title>
+    <link rel="stylesheet" th:href="@{/css/view.css}">
+</head>
+<body>
+<div class="header-buttons">
+    <a th:href="@{/products/order}" class="view-ordered-button">Просмотр заказов</a>
+    <a th:href="@{/products/cart1}" class="cart-button">Корзина</a>
+</div>
+<h1>Список товаров</h1>
+<ul th:each="product:${products}">
+    <li>
+        <div class="product-info">
+            <h2 th:text="${product.getCategory().getName()}"></h2>
+            <p th:text="${product.getName()}"></p>
+            <p th:text="${product.getPrice()}"></p>
+        </div>
+        <div class="buttons">
+            <form th:action="@{/products}" method="post">
+                <input type="hidden" th:value="${product.getId()}" name="addCart"/>
+                <button type="submit" class="add-button">Добавить</button>
+            </form>
+            <a th:href="@{/products/{productId}(productId=${product.getId()})}" class="detail-button">Подробнее</a>
+        </div>
+    </li>
+</ul>
+</body>
+</html>

@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Data resource</title>
+    <link rel="stylesheet" th:href="@{/css/check_review.css}">
+</head>
+<body>
+<div class="container">
+    <h1>Подтверждение и отклонение комментариев</h1>
+
+    <div class="comment" th:each="review:${reviewList}">
+        <div class="author" th:text="${review.getUser().getName()}"></div>
+        <div class="content" th:text="${review.getText()}"></div>
+        <div class="buttons">
+            <form th:action="@{/check_user_review}" method="post">
+                <input type="hidden" name="confirm" value="confirm"/>
+                <input type="hidden" name="review_confirm"th:value="${review.getId()}"/>
+                <button type="submit" class="approve-button">Подтвердить</button>
+            </form>
+            <form th:action="@{/check_user_review}" method="post">
+                <input type="hidden" name="reject" value="reject"/>
+                <input type="hidden" name="review_reject"th:value="${review.getId()}"/>
+                <button type="submit" class="reject-button">Отклонить</button>
+            </form>
+        </div>
+    </div>
+
+
+    <!-- Добавьте здесь другие комментарии -->
+
+</div>
+</body>
+</html>

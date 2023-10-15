@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Third Resource page</title>
+  <link rel="stylesheet" th:href="@{/css/view.css}">
+</head>
+<body>
+
+<p th:each="products:${products}" th:text="${products.getName()+' '+products.getCategory()+' '+products.getPrice()}"></p>
+
+
+</p>
+</body>
+</html>
